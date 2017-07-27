@@ -1,11 +1,5 @@
 module DirectStepIntegration
 
-LOCAL_PATH = dirname(PROGRAM_FILE)
-if LOCAL_PATH == ""
-    LOCAL_PATH = "."
-end
-push!(LOAD_PATH,  abspath(LOCAL_PATH))
-
 using Dierckx
 using DifferentialEquations
 using Plots
