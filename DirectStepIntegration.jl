@@ -1,5 +1,5 @@
 module DirectStepIntegration
-include("DirectStepIntegration.jl")
+
 using Dierckx
 using DifferentialEquations
 using Plots
