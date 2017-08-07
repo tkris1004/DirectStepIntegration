@@ -318,7 +318,7 @@ end
 
 
 
-function razavi(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.01,200),ic=([0;0],[0;0]),p=(0.1,ones(150,1)*[0 100]))
+function razavi(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.1,20),ic=([0;0],[0;0]),p=(0.1,ones(15,1)*[0 100]))
 # Giai phuong trinh dao dong HE TUYEN TINH theo phuong phuong phap Razavi
 # dth: Dac trung cua he dth=(m,c,k) trong do m la khoi luong, c la he so can nhot va k la do cung
 # tz: vecto co cac thong tin ve thoi gian, nhu sau tz=[h;nstep] trong do h la do lon buoc chia theo thoi gian va nstep la so buoc chia theo thoi gian.
@@ -383,7 +383,7 @@ function razavi(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.01,200),ic=([0;
     return u,ud,udd
 end
 
-function newmark(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.01,200),ic=([0;0],[0;0]),p=(0.1,ones(150,1)*[0 100]),param=(1/6,1/2))
+function newmark(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.1,20),ic=([0;0],[0;0]),p=(0.1,ones(15,1)*[0 100]),param=(1/6,1/2))
 
 # Giai phuong trinh dao dong HE TUYEN TINH theo phuong phuong phap Newmark
 # dth: Dac trung cua he dth=(m,c,k) trong do m la khoi luong, c la he so can nhot va k la do cung
@@ -433,7 +433,7 @@ function newmark(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.01,200),ic=([0
     return u,ud,udd
 end
 
-function wilson(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.01,200),ic=([0;0],[0;0]),p=(0.1,ones(150,1)*[0 100]),param=1.4)
+function wilson(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.1,20),ic=([0;0],[0;0]),p=(0.1,ones(15,1)*[0 100]),param=1.4)
 # Giai phuong trinh dao dong HE TUYEN TINH theo phuong phuong phap Newmark
 # dth: Dac trung cua he dth=[m;c;k] trong do m la khoi luong, c la he so can nhot va k la do cung
 # tz: vecto co cac thong tin ve thoi gian, nhu sau tz=[h;nstep] trong do h la do lon buoc chia theo thoi gian va nstep la so buoc chia theo thoi gian.
