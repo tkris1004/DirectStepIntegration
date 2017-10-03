@@ -4,7 +4,7 @@ using Dierckx
 using DifferentialEquations
 using Plots
 
-export tkris4, tkris5, razavi
+export tkris4, tkris5, razavi,rk_bi
 
 function cvs(omgd,t)
 	c=cos(omgd*t);
@@ -475,4 +475,52 @@ function wilson(dth=([2 0;0 1],[0 0; 0 0],[96 -32;-32 32]),tz=(0.1,20),ic=([0;0]
     end
     return u,ud,udd
 end
+
+function rk_bi(dth,ccd,tz,ic,ztn_raw);
+	function ftcd(t,u,du)
+		temp1=Int((length(u)-1)/2)-1;
+		temp2=length(u)-2;
+		ptt=[];
+		for i=1:siz2
+			a=xxtt[i](t);
+			ptt=[ptt;a]
+		end
+		ztn=xxztn(t);
+		x1=u[1:temp1];
+		x2=u[temp1+1:temp1+1];
+		v1=u[temp1+2:temp2];
+		v2=u[temp2+1:temp2+1];
+		w=u[temp2+2:temp2+2];
+		du[1:temp1]=v1;
+		du[temp1+1:temp1+1]=v2;
+		du[temp1+2:temp2]=m\(-c*(v1-iot*v2)-k*(x1-iot*x2))-iot*ztn;
+		du[temp2+1:temp2+1]=-(alp*ke*x2+(1-alp)*ke*uy*w-c_s*(delt1*v1-v2)-k_s*(delt1*x1-x2))/m_b-ztn;
+		du[temp2+2:temp2+2]=(v2-gamm*abs(v2).*abs(w).^(n-1).*w-beta1*v2.*abs(w).^n)/uy;
+	end
+
+	m,c,k=dth;
+	alp,beta1,gamm,n,uy,ke=ccd;
+	h=tz[1];
+	nstep=Int(tz[2])
+
+	siz2=size(m,2);
+	iot=ones(siz2,1);
+	delt1=[1 zeros(1,siz2-1)];
+	sil=(ztn_raw[1],-ztn_raw[2]*iot'*m);
+	sil
+	silt,t=ltd_dqc(tz,sil);
+	ztnt,t1=ltd_dqc(tz,ztn_raw);
+	xxtt=[Spline1D(t,silt[:,i]) for i=1:siz2];
+	xxztn=Spline1D(t1,ztnt[:]);
+
+	hns=h*nstep;
+
+	u0=ic;
+
+	prob=ODEProblem(ftcd,u0,(0.0,hns));
+
+	sol=solve(prob,Tsit5());
+	return sol;
+end
+
 end
